@@ -1,0 +1,42 @@
+# ── Build output ──
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+[Pp]ublish/
+dist/
+artifacts/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# ── IDE / editor ──
+.vs/
+.vscode/
+.idea/
+*.swp
+*~
+
+# ── NuGet ──
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+
+# ── Test / coverage ──
+[Tt]est[Rr]esult*/
+*.coverage
+*.coveragexml
+
+# ── Logs ──
+*.log
+
+# ── OS ──
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+.DS_Store
+
+# ── Local assistant working notes (not source) ──
+.workbuddy/

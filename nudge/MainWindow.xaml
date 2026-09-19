@@ -1,0 +1,149 @@
+<Window x:Class="Nudge.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nudge — tray icon states" Width="660" SizeToContent="Height"
+        WindowStartupLocation="CenterScreen"
+        Background="#FF1E1E1E" Foreground="#FFE8E8E8">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Section" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+        <!-- Inside a strip, text has to read against the strip, not against the window. -->
+        <Style x:Key="OnDarkName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFEDEDED"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="OnDarkNote" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFEDEDED"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <Style x:Key="OnLightName" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF1C1C1C"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+        <Style x:Key="OnLightNote" TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FF1C1C1C"/>
+            <Setter Property="FontSize" Value="11"/>
+            <Setter Property="Opacity" Value="0.5"/>
+        </Style>
+        <!-- One row of the strip: label, 16px, 32px, and the 16px frame magnified as a loupe. -->
+        <Style x:Key="Swap16" TargetType="Image">
+            <Setter Property="Width" Value="16"/>
+            <Setter Property="Height" Value="16"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Swap32" TargetType="Image">
+            <Setter Property="Width" Value="32"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style x:Key="Swap48" TargetType="Image">
+            <Setter Property="Width" Value="48"/>
+            <Setter Property="Height" Value="48"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="NearestNeighbor"/>
+        </Style>
+    </Window.Resources>
+
+    <StackPanel Margin="22,18,22,20">
+        <TextBlock Text="The tray glyph, drawn for the taskbar it lands on" FontSize="15" FontWeight="SemiBold"/>
+        <TextBlock FontSize="11" Opacity="0.6" TextWrapping="Wrap" Margin="0,5,0,18"
+                   Text="Real pixel sizes, then the 16px frame at 3x so its stroke can be judged. Same eye, same orange pupil, same geometry — only the stroke inverts."/>
+
+        <!-- Dark taskbar: the default set, drawn with light strokes. -->
+        <TextBlock Style="{StaticResource Section}" Text="On a dark taskbar       nudge-*.ico"/>
+        <Border Background="#FF1B1B1B" CornerRadius="8" Padding="16,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="142"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="44"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="54"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnDarkName}" Text="waiting"/>
+                    <TextBlock Style="{StaticResource OnDarkNote}" Text="a check is still due"/>
+                </StackPanel>
+                <Image x:Name="DarkWaiting16" Grid.Row="0" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="DarkWaiting32" Grid.Row="0" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="DarkWaiting3x" Grid.Row="0" Grid.Column="3" Style="{StaticResource Swap48}"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnDarkName}" Text="done"/>
+                    <TextBlock Style="{StaticResource OnDarkNote}" Text="all seen, or paused"/>
+                </StackPanel>
+                <Image x:Name="DarkDone16" Grid.Row="1" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="DarkDone32" Grid.Row="1" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="DarkDone3x" Grid.Row="1" Grid.Column="3" Style="{StaticResource Swap48}"/>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnDarkName}" Text="silent"/>
+                    <TextBlock Style="{StaticResource OnDarkNote}" Text="rest day, no windows"/>
+                </StackPanel>
+                <Image x:Name="DarkSilent16" Grid.Row="2" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="DarkSilent32" Grid.Row="2" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="DarkSilent3x" Grid.Row="2" Grid.Column="3" Style="{StaticResource Swap48}"/>
+            </Grid>
+        </Border>
+
+        <!-- Light taskbar: the -light set, drawn with dark strokes. -->
+        <TextBlock Style="{StaticResource Section}" Text="On a light taskbar     nudge-*-light.ico" Margin="0,20,0,10"/>
+        <Border Background="#FFF4F4F4" CornerRadius="8" Padding="16,14">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="142"/>
+                    <ColumnDefinition Width="40"/>
+                    <ColumnDefinition Width="44"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="54"/>
+                    <RowDefinition Height="54"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnLightName}" Text="waiting"/>
+                    <TextBlock Style="{StaticResource OnLightNote}" Text="a check is still due"/>
+                </StackPanel>
+                <Image x:Name="LightWaiting16" Grid.Row="0" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="LightWaiting32" Grid.Row="0" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="LightWaiting3x" Grid.Row="0" Grid.Column="3" Style="{StaticResource Swap48}"/>
+
+                <StackPanel Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnLightName}" Text="done"/>
+                    <TextBlock Style="{StaticResource OnLightNote}" Text="all seen, or paused"/>
+                </StackPanel>
+                <Image x:Name="LightDone16" Grid.Row="1" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="LightDone32" Grid.Row="1" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="LightDone3x" Grid.Row="1" Grid.Column="3" Style="{StaticResource Swap48}"/>
+
+                <StackPanel Grid.Row="2" Grid.Column="0" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource OnLightName}" Text="silent"/>
+                    <TextBlock Style="{StaticResource OnLightNote}" Text="rest day, no windows"/>
+                </StackPanel>
+                <Image x:Name="LightSilent16" Grid.Row="2" Grid.Column="1" Style="{StaticResource Swap16}"/>
+                <Image x:Name="LightSilent32" Grid.Row="2" Grid.Column="2" Style="{StaticResource Swap32}"/>
+                <Image x:Name="LightSilent3x" Grid.Row="2" Grid.Column="3" Style="{StaticResource Swap48}"/>
+            </Grid>
+        </Border>
+
+        <TextBlock FontSize="11" Opacity="0.55" TextWrapping="Wrap" Margin="0,18,0,0"
+                   Text="Which set the tray wears comes from SystemUsesLightTheme under HKCU\Software\Microsoft\Windows\CurrentVersion\Themes\Personalize, re-read on SystemEvents.UserPreferenceChanged. Pin one with --force-theme light|dark, or pin a state with --force-state waiting|done|silent."/>
+    </StackPanel>
+</Window>

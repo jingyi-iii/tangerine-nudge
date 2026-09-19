@@ -1,0 +1,125 @@
+<Window x:Class="Nudge.ReminderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Nudge reminder"
+        Width="340" SizeToContent="Height"
+        WindowStyle="None" AllowsTransparency="True" ResizeMode="NoResize"
+        ShowInTaskbar="False" Topmost="True" WindowStartupLocation="Manual"
+        Background="Transparent" ShowActivated="False"
+        TextOptions.TextFormattingMode="Display" UseLayoutRounding="True"
+        FontFamily="Segoe UI" FontSize="13">
+
+    <!-- ShowActivated="False" on purpose. A card that activates takes the keyboard away from
+         whatever the user was typing in, and the card has no text input of its own, so those
+         keystrokes are simply swallowed. Topmost already puts it in front of the eyes, which is
+         the whole job; taking focus as well only turns "look at this" into "stop what you are
+         doing". Nothing here needs the keyboard: there is no Esc, no default button, no Tab
+         order worth following. Clicking either button activates it the normal way. -->
+
+    <Window.Resources>
+        <!-- Both button styles read their colours from CardTheme.xaml — the same dictionary the
+             tray menu draws from. Nothing here names a colour inline, so the two pieces cannot
+             drift apart; CardTheme.xaml is the only place either of them can be changed. -->
+        <Style x:Key="CardButton" TargetType="Button">
+            <Setter Property="Foreground" Value="{StaticResource CardText}"/>
+            <Setter Property="Background" Value="{StaticResource CardButtonFace}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CardButtonEdge}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="11,5,11,6"/>
+            <Setter Property="Margin" Value="8,0,0,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg" CornerRadius="5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background"
+                                        Value="{StaticResource CardButtonHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Background"
+                                        Value="{StaticResource CardPressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- The one accent in the card: the same orange as the pupil in the tray glyph. -->
+        <Style x:Key="PrimaryButton" TargetType="Button" BasedOn="{StaticResource CardButton}">
+            <Setter Property="Background" Value="{StaticResource CardAccent}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource CardAccentEdge}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="bg" CornerRadius="5"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="bg" Property="Background"
+                                        Value="{StaticResource CardAccentHover}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="bg" Property="Background"
+                                        Value="{StaticResource CardAccentPressed}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+
+    <!-- The card wears Nudge's own dark surface in either system theme: it turns up uninvited on
+         top of whatever the user was doing, and reading as one quiet, deliberate object is worth
+         more than matching the desktop. (The tray glyph is the exception — that one sits on the
+         OS taskbar and does follow the theme.) -->
+    <Border CornerRadius="10" Background="{StaticResource CardSurface}"
+            BorderBrush="{StaticResource CardEdge}" BorderThickness="1"
+            Effect="{StaticResource CardShadow}">
+        <StackPanel Margin="16,13,16,13">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Image Grid.Column="0" x:Name="Glyph" Width="18" Height="18"
+                       VerticalAlignment="Center" Margin="0,0,9,0"/>
+                <TextBlock Grid.Column="1" x:Name="TitleText" Foreground="{StaticResource CardTitle}"
+                           FontSize="14" FontWeight="SemiBold" VerticalAlignment="Center"
+                           TextTrimming="CharacterEllipsis"/>
+            </Grid>
+            <TextBlock x:Name="BodyText" Foreground="{StaticResource CardBody}" TextWrapping="Wrap"
+                       Margin="27,6,0,0" LineHeight="19"/>
+            <!-- "Handled" goes first and is never the flexible one. It is the only way to put the
+                 card away, so nothing — least of all a long launch target out of settings.json —
+                 may squeeze it. The Open label absorbs any overflow by trimming instead; the
+                 MaxWidth is the arithmetic of the 400 DIP card minus its padding minus a full
+                 "Handled" button, with room to spare. Its tooltip names the whole target. -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,15,0,0">
+                <Button x:Name="AckButton" Style="{StaticResource CardButton}"
+                        Content="Handled" Click="AckButton_Click"
+                        ToolTip="I have dealt with this — stop counting it for today"/>
+                <Button x:Name="OpenButton" Style="{StaticResource PrimaryButton}"
+                        Click="OpenButton_Click" Visibility="Collapsed" MaxWidth="260">
+                    <TextBlock x:Name="OpenButtonText" Text="Open"
+                               TextTrimming="CharacterEllipsis"/>
+                </Button>
+            </StackPanel>
+        </StackPanel>
+    </Border>
+</Window>

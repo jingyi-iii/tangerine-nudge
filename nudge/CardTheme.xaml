@@ -1,0 +1,71 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- The one surface language Nudge speaks, shared by the two things that float over the
+         desktop: the reminder card and the tray menu. Nothing in either window spells a colour
+         out inline — change it here and both move together.
+
+         It is a single dark skin on purpose. Nudge does not follow the system light/dark theme:
+         the card is a thing that arrives uninvited, and it reads best as its own quiet surface
+         rather than as a piece of whatever theme the desktop happens to be wearing. The tray
+         glyph is the exception — that one sits on the OS taskbar, so it does follow. -->
+
+    <!-- The panel itself -->
+    <SolidColorBrush x:Key="CardSurface" Color="#F42B2B2B"/>
+
+    <!-- Type: the heading, the sentence under it, and the label on a button or a menu row -->
+    <SolidColorBrush x:Key="CardTitle"   Color="#FFF2F2F2"/>
+    <SolidColorBrush x:Key="CardBody"    Color="#FFC8C8C8"/>
+    <SolidColorBrush x:Key="CardText"    Color="#FFEDEDED"/>
+
+    <!-- One rim for both pieces: a hairline of light along the edge, so a dark panel stays
+         legible over a dark desktop and gains an edge over a light one. The drop shadow does the
+         rest; a dark rim would vanish into either. -->
+    <SolidColorBrush x:Key="CardEdge"    Color="#33FFFFFF"/>
+
+    <!-- And one shadow: both pieces float at the same height, so both cast the same one.
+         A Freezable, shared by the two windows rather than spelled out twice. -->
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="4" Direction="315"
+                      Opacity="0.6" Color="#FF000000"/>
+
+    <!-- Menu rows: nothing but hover and press -->
+    <SolidColorBrush x:Key="CardHover"   Color="#FF3E3E3E"/>
+    <SolidColorBrush x:Key="CardPressed" Color="#FF2C2C2C"/>
+    <SolidColorBrush x:Key="CardDivider" Color="#FF3E3E3E"/>
+
+    <!-- The quiet button ("Handled"): a face barely above the surface, an edge to hold it -->
+    <SolidColorBrush x:Key="CardButtonFace"  Color="#FF3E3E3E"/>
+    <SolidColorBrush x:Key="CardButtonEdge"  Color="#FF555555"/>
+    <SolidColorBrush x:Key="CardButtonHover" Color="#FF4D4D4D"/>
+
+    <!-- The accent ("Open"): the same orange as the pupil in the tray glyph -->
+    <SolidColorBrush x:Key="CardAccent"        Color="#FFCC6A2B"/>
+    <SolidColorBrush x:Key="CardAccentEdge"    Color="#FFE0873F"/>
+    <SolidColorBrush x:Key="CardAccentHover"   Color="#FFDD7C37"/>
+    <SolidColorBrush x:Key="CardAccentPressed" Color="#FFB25C23"/>
+
+    <!-- The tooltip. It is the last thing Nudge puts on screen and the only piece of it that still
+         wore stock Windows chrome — a light grey box with a hard border and a different font, which
+         looks like another application's tooltip sitting on top of the card. Same skin as the rest.
+         The window it lives in belongs to WPF's popup host rather than to Nudge, hence the outer
+         margin: it is the shadow's room, exactly as the tray menu's margin is. -->
+    <Style TargetType="ToolTip">
+        <Setter Property="Foreground" Value="{StaticResource CardText}"/>
+        <Setter Property="FontFamily" Value="Segoe UI"/>
+        <Setter Property="FontSize" Value="12"/>
+        <Setter Property="HasDropShadow" Value="True"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="ToolTip">
+                    <Border CornerRadius="6" Margin="8"
+                            Background="{StaticResource CardSurface}"
+                            BorderBrush="{StaticResource CardEdge}" BorderThickness="1"
+                            Effect="{StaticResource CardShadow}">
+                        <ContentPresenter Margin="10,6"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+</ResourceDictionary>
