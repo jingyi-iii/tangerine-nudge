@@ -36,11 +36,11 @@ Crescent moon = silent today (rest day, paused, or nothing configured).
 
 | Action | How |
 | --- | --- |
-| Open the settings file | Left-click or double-click the tray icon |
-| Menu (Settings / Pause today / Exit) | Right-click the tray icon |
+| Open the settings file | Double-click the tray icon |
+| Menu (Open settings / Pause or Resume today / Exit) | Right-click the tray icon |
 | Mark a reminder handled | *Handled* on the card |
 | Open the reminder's target | *Open …* on the card |
-| Dismiss without reading | `Alt+F4`, or just let it sit there |
+| Snooze by ignoring it | do nothing — the card waits, and comes back once after 45 minutes |
 
 Hovering a card's buttons explains what they do — *Handled* in particular says that
 dismissing the card is what stops it counting for today.
@@ -70,7 +70,7 @@ Settings live in `%APPDATA%\Nudge\settings.json`. The file is seeded on first ru
   it out and the card offers only *Handled*.
 - `workDays` — `1` = Monday … `7` = Sunday.
 
-Two `_`-prefixed keys are inert documentation for whoever edits the file next; Nudge
+The `_`-prefixed keys are inert documentation for whoever edits the file next; Nudge
 ignores anything it doesn't recognise. Entries with an unparseable time are skipped
 with a log line rather than breaking the whole file.
 
@@ -152,7 +152,7 @@ nudge/
   StateStore.cs             per-day sent/acked/paused state
   AutoStart.cs              HKCU Run registration and repair
   SystemTheme.cs            light/dark taskbar detection
-  CardTheme.xaml            single source of truth for every colour in the app
+  CardTheme.xaml            single source of truth for the app's palette
   Paths.cs / Log.cs         where files live; rotating log
   Assets/                   generated tray glyphs (dark and light taskbar flavours)
   tools/                    icon generation, publish, clean, reset
