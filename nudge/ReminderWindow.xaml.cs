@@ -100,7 +100,7 @@ namespace Nudge
         }
 
         // For closes the user did not ask for: a card dropped off a full screen, or the app
-        // shutting down. Those are not a decision about the tickets.
+        // shutting down. Those are not a decision about the reminder.
         public void CloseWithoutAck()
         {
             ackOnClose = false;

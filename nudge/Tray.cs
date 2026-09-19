@@ -32,7 +32,7 @@ namespace Nudge
         private static readonly Icon DoneOnLight = LoadIcon("nudge-done-light");
         private static readonly Icon SilentOnLight = LoadIcon("nudge-silent-light");
 
-        // The glyph is an eye: Nudge's whole job is "take one glance at the tickets".
+        // The glyph is an eye: Nudge's whole job is "go look at the thing you're putting off".
         // waiting = open eye with an orange pupil, done = eye with an orange check,
         // silent = crescent moon. See tools/gen-icons.ps1.
         private static Icon LoadIcon(string name)

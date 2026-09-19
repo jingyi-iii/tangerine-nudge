@@ -46,17 +46,17 @@ namespace Nudge
                 var shapes = new (WindowItem Item, int Attempt)[]
                 {
                     (new WindowItem { At = "11:30", Label = "Morning sweep",
-                        Open = "https://tickets.acme.com" }, 1),
+                        Open = "https://reports.acme.com" }, 1),
                     (new WindowItem { At = "17:30", Label = "Afternoon sweep" }, 1),
                     (new WindowItem { At = "09:00",
                         Label = "Quarterly compliance review backlog sweep (APAC region)",
-                        Open = "https://tickets.acme-internal.example.com/queues/compliance" }, 1),
+                        Open = "https://reports.acme-internal.example.com/dashboards/compliance" }, 1),
                     (new WindowItem { At = "17:30", Label = "Afternoon sweep",
                         Open = "outlook:inbox" }, 2),
                     // A path-derived button name has no length cap (only http(s) hosts are cut),
                     // so this is the widest "Open ..." the card can ever be asked to wear. It is
                     // also the escalating reminder, whose title is the only one that can outgrow
-                    // the card: "<label>: still unchecked".
+                    // the card: "<label>: still waiting".
                     (new WindowItem { At = "10:00",
                         Label = "Quarterly compliance review backlog sweep (APAC region)",
                         Open = @"C:\Tools\GovernanceComplianceReviewBacklogSweep.exe" }, 2),

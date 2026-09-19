@@ -13,7 +13,7 @@ namespace Nudge
         public string At { get; set; } = "";
         public string Label { get; set; } = "";
 
-        // Optional target the card's main button launches: a URL ("https://tickets…"),
+        // Optional target the card's main button launches: a URL ("https://reports…"),
         // a shortcut/path ("C:\\...\\Outlook.lnk"), or a protocol ("outlook:inbox").
         // Empty means the card only offers "Handled".
         public string Open { get; set; } = "";
@@ -22,7 +22,7 @@ namespace Nudge
         public string Display => string.IsNullOrWhiteSpace(Label) ? At : Label;
 
         // Short friendly name for the "Open …" button, derived from the target itself so
-        // no extra config is needed: "https://tickets.acme.com" → "tickets.acme.com",
+        // no extra config is needed: "https://reports.acme.com" → "reports.acme.com",
         // "outlook:inbox" → "Outlook", "C:\...\Outlook.lnk" → "Outlook".
         [JsonIgnore]
         public string OpenName => DeriveOpenName(Open);
@@ -64,7 +64,7 @@ namespace Nudge
             catch { return "target"; }
         }
 
-        // A hard slice reads as a different name. "tickets.acme-internal.example.com" cut at 24
+        // A hard slice reads as a different name. "reports.acme-internal.example.com" cut at 24
         // characters ends in ".ex", which looks like some other, wrong domain rather than a short
         // one — so where a dot falls late in the name the cut steps back to it, and every cut is
         // marked. It only ever steps back: the result is never longer than the ceiling.
@@ -226,7 +226,7 @@ namespace Nudge
                 { "at": "11:30", "label": "Morning sweep" },
                 { "at": "17:30", "label": "Afternoon sweep" }
               ],
-              "_windows_help": "24-hour local times (\"HH:mm\") to nudge you to check the ticket system. 'label' shows in the reminder; 'at' alone is fine too. 'open' (optional) makes the card's main button launch it: a website (\"https://tickets.example.com\"), a shortcut or exe path, or a protocol (\"outlook:inbox\", \"mailto:boss@acme.com\"). An empty list means: never remind.",
+              "_windows_help": "24-hour local times (\"HH:mm\") to remind you at. 'label' shows in the reminder; 'at' alone is fine too. 'open' (optional) makes the card's main button launch it: a website (\"https://reports.example.com\"), a shortcut or exe path, or a protocol (\"outlook:inbox\", \"mailto:boss@acme.com\"). An empty list means: never remind.",
               "workDays": [1, 2, 3, 4, 5],
               "_workdays_help": "Monday = 1 ... Sunday = 7. Days not listed stay silent."
             }

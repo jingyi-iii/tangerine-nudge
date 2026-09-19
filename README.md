@@ -1,7 +1,7 @@
 # Nudge
 
-A tray app that reminds you to go look at the ticket system — and won't take no for
-an answer. No main window, no settings dialog, one job.
+A tray app that puts a reminder in front of you — and won't take no for an answer.
+No main window, no settings dialog, one job.
 
 Most reminder tools fire a toast and forget about it. Nudge assumes the reminder is
 the thing you *skip*, so it behaves differently: the card stays on screen until you
@@ -21,7 +21,7 @@ deal with it, and if you don't, it comes back once.
 - **Works out your week.** Only remind on the days you list. Other days the tray stays
   a crescent moon and nothing appears.
 - **Pause without opening anything.** "Pause today" lives in the tray menu for the
-  days you're not doing tickets.
+  days you'd rather not be interrupted.
 - **Stacks without clutter.** Multiple due reminders stack up from the bottom-right
   corner, newest at the corner, older ones rising above it.
 - **Follows your theme.** The tray glyph ships in a dark-taskbar and a light-taskbar
@@ -31,7 +31,7 @@ deal with it, and if you don't, it comes back once.
 
 ## Usage
 
-**Tray icon** — an eye. Open = checks still due today. Checkmark = all caught up.
+**Tray icon** — an eye. Open = reminders still due today. Checkmark = all caught up.
 Crescent moon = silent today (rest day, paused, or nothing configured).
 
 | Action | How |
@@ -55,7 +55,7 @@ Settings live in `%APPDATA%\Nudge\settings.json`. The file is seeded on first ru
   "_comment": "Nudge settings. Changes apply within seconds; no restart needed.",
   "windows": [
     { "at": "11:30", "label": "Morning sweep" },
-    { "at": "17:30", "label": "Afternoon sweep", "open": "https://tickets.example.com" }
+    { "at": "17:30", "label": "Afternoon sweep", "open": "https://reports.example.com" }
   ],
   "_windows_help": "…",
   "workDays": [1, 2, 3, 4, 5],

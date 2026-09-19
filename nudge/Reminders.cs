@@ -4,7 +4,7 @@ using System.Windows.Media.Animation;
 namespace Nudge
 {
     // Nudge draws its own reminder cards. Windows toast banners are unreliable exactly where
-    // this app is needed most: they are suppressed over full-screen apps, and the ticket check
+    // this app is needed most: they are suppressed over full-screen apps, and the reminder
     // is meant to interrupt someone who is buried in one.
     internal sealed class Reminders
     {
@@ -27,12 +27,12 @@ namespace Nudge
             string title, body;
             if (attempt == 1)
             {
-                title = "Ticket check";
-                body = $"{window.Display} ({window.At}) — open the ticket system and take one look.";
+                title = "Reminder";
+                body = $"{window.Display} ({window.At}) — take a look and deal with it.";
             }
             else
             {
-                title = $"{window.Display}: still unchecked";
+                title = $"{window.Display}: still waiting";
                 body = $"Last reminder for the {window.At} window today. After this, Nudge stays silent until the next one.";
             }
 
