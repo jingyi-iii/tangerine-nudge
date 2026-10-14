@@ -24,8 +24,13 @@
     <SolidColorBrush x:Key="CardEdge"    Color="#33FFFFFF"/>
 
     <!-- And one shadow: both pieces float at the same height, so both cast the same one.
-         A Freezable, shared by the two windows rather than spelled out twice. -->
-    <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="4" Direction="315"
+         A Freezable, shared by the two windows rather than spelled out twice.
+
+         Geometry (18 / 2 / 315 / black) is the one tangerine-screenshot uses too, so a Nudge
+         card and a Screenshot card read as siblings. Only the opacity differs, and it has to:
+         this is a dark panel over an arbitrary desktop and needs more separation than the light
+         panel Screenshot puts up. -->
+    <DropShadowEffect x:Key="CardShadow" BlurRadius="18" ShadowDepth="2" Direction="315"
                       Opacity="0.6" Color="#FF000000"/>
 
     <!-- Menu rows: nothing but hover and press -->
@@ -38,7 +43,12 @@
     <SolidColorBrush x:Key="CardButtonEdge"  Color="#FF555555"/>
     <SolidColorBrush x:Key="CardButtonHover" Color="#FF4D4D4D"/>
 
-    <!-- The accent ("Open"): the same orange as the pupil in the tray glyph -->
+    <!-- The accent ("Open"): the same orange as the pupil in the tray glyph.
+
+         One tangerine hue, three value bands across the series. This is the *fill* band: the
+         colour sits behind white label text, so it has to stay dark enough to carry it.
+         tangerine-screenshot uses the same hue as a stroke and a tint, where it can be far
+         brighter (#EA580C on light surfaces, #FB923C on dark). -->
     <SolidColorBrush x:Key="CardAccent"        Color="#FFCC6A2B"/>
     <SolidColorBrush x:Key="CardAccentEdge"    Color="#FFE0873F"/>
     <SolidColorBrush x:Key="CardAccentHover"   Color="#FFDD7C37"/>
